@@ -1,5 +1,42 @@
 <?php
 
+// Configuration pour la connexion RDS
+$host = 'terraform-20250121115406880900000010.cxymgguk68ge.eu-west-3.rds.amazonaws.com'; 
+$username = 'admin';  
+$password = 'SuperSecretPassword123';
+$database = "testdb"; // Base cible
+$sqlFile = "export.sql"; // Chemin vers votre fichier SQL
+
+// Connexion à la base RDS
+try {
+    $conn = new PDO("mysql:host=$host;port=$port;dbname=$database", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    echo "Connexion réussie à la base de données RDS.<br>";
+
+    // Lire le fichier SQL
+    if (!file_exists($sqlFile)) {
+        die("Erreur : Le fichier SQL $sqlFile n'existe pas.");
+    }
+    $sqlContent = file_get_contents($sqlFile);
+    echo "Fichier SQL chargé.<br>";
+
+    // Exécuter les commandes SQL
+    $queries = explode(";", $sqlContent); // Diviser le fichier SQL en requêtes
+    foreach ($queries as $query) {
+        $query = trim($query); // Nettoyer la requête
+        if (!empty($query)) {
+            $conn->exec($query); // Exécuter la requête
+        }
+    }
+    echo "Importation des données réussie depuis le fichier SQL.<br>";
+
+} catch (PDOException $e) {
+    echo "Erreur de connexion ou d'importation : " . $e->getMessage() . "<br>";
+}
+
+
+
+
 // Démarrage de la session
 session_start();
 
