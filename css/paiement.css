@@ -1,0 +1,235 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,800');
+@import url("color.css");
+
+/* Modif bootstrap */
+a {
+    text-decoration: none;
+    color: #fff !important;
+}
+
+a:hover {
+    text-decoration: none !important;
+
+}
+
+h1 {
+    font-size: 2rem !important;
+    font-weight: bold !important;
+    margin-bottom: 0 !important;
+}
+
+ul {
+    margin-bottom: 0 !important;
+}
+
+
+
+/* Styles généraux */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif !important;
+
+}
+
+header {
+    background-color: #004FFF;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+}
+
+.h {
+    display: flex;
+    position: relative;
+}
+
+.account {
+    position: absolute;
+    right: 0;
+    color: #ffffd8;
+}
+
+.accountsvg {
+
+    transition: border-color 0.2s ease-in-out;
+    border: 1px solid transparent;
+    border-radius: 100%;
+    padding: 5px;
+}
+
+
+.accountsvg:hover {
+    transition: border-color 0.2s ease-in-out;
+    border-color: #ffffd8;
+
+}
+
+.menu {
+    display: flex;
+    list-style: none !important;
+}
+
+nav .menu li:not(:last-child) {
+    margin-right: 3%;
+}
+
+.menu li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+main {
+    padding: 2rem;
+}
+
+h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    font-family: 'Montserrat', sans-serif !important;
+
+}
+
+.navbar2 li:hover {
+    text-decoration: underline;
+    transition: all 0.3s ease;
+    text-underline-offset: 6px;
+    color: #ffffd8;
+}
+
+.selected {
+    z-index: 1;
+    text-decoration: underline !important;
+    text-underline-offset: 6px;
+    color: #ffffd8;
+
+}
+
+/*Catégorie sub-menu*/
+.sub-menu {
+    margin-top: 10px;
+    background-color: transparent;
+    border-radius: 10px;
+}
+
+.hidden {
+    display: none;
+}
+
+.sub-menu-container {
+    z-index: 1;
+}
+
+
+.sub-menu-item:hover {
+    transition: ease-in-out 0.5s;
+}
+
+.taille {
+    max-width: 100%;
+    max-height: 100px;
+    width: auto;
+    height: auto;
+}
+
+.buttons-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+
+.buttons-container button {
+    margin: 0 10px;
+    padding: 20px 20px;
+    font-size: 16px;
+    background-color: #fff;
+    color: #004FFF;
+    border: #004FFF 1px solid;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.buttons-container button:hover {
+    background-color: #004FFF;
+    border-color: #fff;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+}
+
+input[type="text"],
+select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+input[type="text"] {
+    text-transform: uppercase;
+}
+
+select {
+    appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, gray 50%), linear-gradient(135deg, gray 50%, transparent 50%);
+    background-position: calc(100% - 20px) calc(1em + 2px), calc(100% - 15px) 1em;
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+}
+
+button[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #fff;
+    color: black;
+    border: 1px #004FFF solid;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+button[type="submit"]:hover {
+    background-color: #004FFF;
+    border: 1px #fff solid;
+}
+
+
+.total {
+    text-align: center;
+    background-color: #f2f2f2;
+    padding: 10px;
+}
+
+h3 {
+    font-size: 18px !important;
+    color: #333 !important;
+}
+
+.case {
+    width: 300px;
+    height: auto;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.article {
+    padding: 2px;
+    border-radius: 20px;
+}
+
+.row {
+    justify-content: space-around;
+}
