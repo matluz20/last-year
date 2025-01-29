@@ -28,8 +28,8 @@ session_start();
 
   <head>
     <meta charset="UTF-8">
-    <title>Efrei MarketPlace - Ventes</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <title>Efrei Marketplace  - Ventes</title>
+    <link rel="stylesheet" href="../css/style.css">
     
   </head>
 
@@ -40,7 +40,7 @@ session_start();
     <header>
 
       <div class="h1">
-        <h1><a href="/">Efrei MarketPlace</a></h1>
+        <h1><a href="/">Efrei Marketplace </a></h1>
         <h1 class="account"><a href="/php/compte/moncompte.php"><img src="/image/person.svg" class="accountsvg"></a></h1>
       </div>
       <nav class="navbar">
@@ -152,7 +152,7 @@ session_start();
                 <img src="/image/LOGO PROJECT.png" alt="Photo" class="footer-photo">
               </div>
               
-              <p>&copy; Efrei MarketPlace - Tous droits réservés</p>
+              <p>&copy; Efrei Marketplace  - Tous droits réservés</p>
               <br>
   </footer>
   <script src="/js/script.js"></script>

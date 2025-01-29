@@ -13,6 +13,11 @@ body {
   background-color: var(--main);
 }
 
+body{
+  line-height: initial !important;
+}
+
+
 header {
   background-color: var(--header);
   justify-content: space-between;
@@ -55,6 +60,11 @@ header h1 {
 }
 
 .menu {
+  display: flex;
+  list-style: none;
+}
+
+.flexcard {
   display: flex;
   list-style: none;
 }
@@ -374,9 +384,23 @@ h2 {
 
 /* style pour la page moncompte*/
 
+.UserCard {
+  display: flex;
+  background-color: #F2F2F2;
+  border: 1px solid #CCCCCC;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px;
+  font-family: Arial, sans-serif;
+  color: #333333;
+  align-self: center;
+}
 
-#UserCard {
-  text-align: center;
+.UserCard div{
+  margin-left: 1%;
+}
+.UserCard div:first-child{
+  margin-left: 0;
 }
 
 .username {

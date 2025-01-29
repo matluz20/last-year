@@ -2,10 +2,10 @@
 
 
 
-$host = 'terraform-20250121115406880900000010.cxymgguk68ge.eu-west-3.rds.amazonaws.com'; 
-$dbname = 'testdb';   
-$username = 'admin';  
-$password = 'SuperSecretPassword123';
+$host = '91.173.60.180'; 
+$dbname = 'projet_web';   
+$username = 'rs2';  
+$password = 'Toto123#';
 
 
 // Connexion à la base de données

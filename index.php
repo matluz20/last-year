@@ -1,49 +1,20 @@
 <?php
 
-// Configuration pour la connexion RDS
-$host = 'terraform-20250121115406880900000010.cxymgguk68ge.eu-west-3.rds.amazonaws.com'; 
-$username = 'admin';  
-$password = 'SuperSecretPassword123';
-$database = "testdb"; // Base cible
-$sqlFile = "export.sql"; // Chemin vers votre fichier SQL
-
-// Connexion à la base RDS
-try {
-    $conn = new PDO("mysql:host=$host;port=$port;dbname=$database", $username, $password);
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    echo "Connexion réussie à la base de données RDS.<br>";
-
-    // Lire le fichier SQL
-    if (!file_exists($sqlFile)) {
-        die("Erreur : Le fichier SQL $sqlFile n'existe pas.");
-    }
-    $sqlContent = file_get_contents($sqlFile);
-    echo "Fichier SQL chargé.<br>";
-
-    // Exécuter les commandes SQL
-    $queries = explode(";", $sqlContent); // Diviser le fichier SQL en requêtes
-    foreach ($queries as $query) {
-        $query = trim($query); // Nettoyer la requête
-        if (!empty($query)) {
-            $conn->exec($query); // Exécuter la requête
-        }
-    }
-    echo "Importation des données réussie depuis le fichier SQL.<br>";
-
-} catch (PDOException $e) {
-    echo "Erreur de connexion ou d'importation : " . $e->getMessage() . "<br>";
-}
-
-
-
 
 // Démarrage de la session
 session_start();
 
+
+	$statut = @$_SESSION["statut"];
+	if($statut == "admin"){
+	header ('Location: /php/compte/admin.php');
+	//Arrêt de l'exécution du code
+	exit();
+	}
     // Vérification de la variable de session "connecter"
     if(@$_SESSION["connecter"]=="oui"){ 
         // Redirection vers la page d'accueil si l'utilisateur n'est pas connecté
-        header ('Location: /php/afterconexion.php');
+        header ('Location: /php/compte/moncompte.php');
         // Arrêt de l'exécution du code
         exit();
     }
@@ -57,25 +28,37 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="css/Inscreption.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-    <title>Efrei MarketPlace</title> 
+    <title>Facil'Access </title> 
 </head>
 
 
-    <body>c
+    <body>
 		
 	
-        <h1>Bienvenue sur efrei MarketPlace !</h1>
+        <h1>Bienvenue sur Facil'Access !</h1>
 
 
         <div class="container" id="container">
 	<div class="form-container sign-up-container">
-		<form action="php/compte/insertion.php" method="POST">
+		<form action="php/compte/insertion.php" method="POST" enctype="multipart/form-data">
 			<h1>inscrivez-vous</h1>
-			<input type="username" name="username" placeholder="Username" required/>
-			<input type="password" name="password" placeholder="Password" required/>
+			<input type="username" name="name" placeholder="Nom" required/>
+			<input type="username" name="last_name" placeholder="Prenom" required/>
+			<input type="email" name="email" placeholder="Adresse e-mail" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" />
+			<input type="text" id="telephone" name="telephone" placeholder="Entrez votre numéro" required>
+			<br><label for="photo">Veuillez insérer ci-dessous votre photo de face, bien visible.</label>
+			<input type="file" name="image" id="image" accept="image/*" required />		
+			
+			<br>
+			<label for="rgpd" style="font-size: 12px; color: red; display: inline-block;">
+				<span style="vertical-align: middle;">J'accepte que mes données soient collectées conformément à la politique RGPD.</span>
+				<input type="checkbox" id="rgpd" name="rgpd" required style="vertical-align: middle; margin-left: 5px;">
+			</label><br><br>
+
 			<button name="envoi">Inscription</button>
 		</form>
 	</div>
+	
 	<div class="form-container sign-in-container">
 		<form action="php/compte/verification.php" method="POST">
 			<h1>Connecte-toi !</h1>
@@ -83,6 +66,7 @@ session_start();
 			<input type="password" name="password" placeholder="Password" required/>
 			<button name="envoi">Connexion</button>
 		</form>
+	
 	</div>
 	<div class="overlay-container">
 		<div class="overlay">
@@ -93,11 +77,11 @@ session_start();
 			</div>
 			<div class="overlay-panel overlay-right">
 				 <div id="typewriter"> 
-					<h3 class="typewriter">Bienvenue sur Efrei Marketplace.</h3>
+					<h3 class="typewriter">Bienvenue sur Facil'Access .</h3>
 					<div class="bodywriter"></div>
 				 </div> 
-				<p>Inscrivez-vous avec vos infos personnels</p>
-				<button class="ghost" id="signUp">Rejoins-Nous</button>
+				<p>Inscrivez-vous des maintenant</p>
+				<button class="ghost" id="signUp">Rejoignez-Nous</button>
 			</div>
 		</div>
 	</div>

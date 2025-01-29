@@ -1,9 +1,12 @@
 :root{
     --main: #fff;
-    --secondary: #004FFF;
-    --secondaryborder: #360ed4;
+    --secondary: #c50000;
+    --secondaryborder: #ffd993;
     --titleh2: black;
     --card:#fff;
-    --header:#004FFF;
-    --header-text:#fff;
+    --header:#ffd993;
+    --header-text:#c50000;
+    --connection: #c50000;
+    --connection2: #ffd993;
+
 }

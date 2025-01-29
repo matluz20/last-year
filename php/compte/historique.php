@@ -15,14 +15,14 @@ if (@$_SESSION["connecter"] != "oui") {
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-    <title>Efrei MarketPlace - Ventes</title>
+    <title>Efrei Marketplace  - Ventes</title>
     <link rel="stylesheet" href="/css/paiement.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
     <header>
                     <div class="h">
-                        <h1><a href="/">Efrei MarketPlace</a></h1>
+                        <h1><a href="/">Efrei Marketplace </a></h1>
                         <h1 class="account"><a href="/php/compte/moncompte.php"><img src="/image/person.svg" class="accountsvg"></a></h1>
                     </div>
                     <nav class="navbar2">
@@ -64,7 +64,7 @@ if (@$_SESSION["connecter"] != "oui") {
                             </ul>
                         </div> 
                     </nav>
-                <!-- <h1>Efrei MarketPlace</h1> -->
+                <!-- <h1>Efrei Marketplace </h1> -->
     </header>
     <main>
     <style>

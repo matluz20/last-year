@@ -27,14 +27,11 @@ var textAnime = new Typewriter(txtanim, {
 textAnime
 .pauseFor(2000)
 	.changeDelay(50)
-	.typeString('Ton nouvel espace reservé à ')
-	.pasteString('<span class="switch">l\'achat</span>')
-	.typeString(' d\'articles')
+	.typeString('Votre nouvel espace reservé à ')
+	.pasteString('<span class="switch">votre sécurité</span>')
 	.pauseFor(500)
-	.typeString('<br><br>Notre plateforme conviviale et sécurisée t\'offre une expérience de shopping en ligne inégalée.')
-	.pauseFor(300)
-	.typeString('<br><br>Rejoins-nous dès maintenant et découvre un monde où chaque article a une histoire à raconter !')
-	.pauseFor(2000)
+	.typeString('<br><br>Notre plateforme intuitive et sécurisée qui vous permette de gérer facilement votre accès aux salles de sport près de chez vous.')
+	.pauseFor(600)
 	.start()
 
 // Déclaration d'une variable booléenne qui servira à créer une transition entre achat et vente sur la page d'accueil
@@ -45,9 +42,9 @@ setInterval(() => {
 	const buySpan = document.querySelector('.switch');
 	if (buySpan) {
 		if (isBuying) {
-			buySpan.innerHTML = 'la vente';
+			buySpan.innerHTML = 'votre sécurité';
 		} else {
-			buySpan.innerHTML = 'l\'achat';
+			buySpan.innerHTML = 'vos accès';
 		}
 	}
 	isBuying = !isBuying;

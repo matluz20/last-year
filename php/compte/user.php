@@ -16,23 +16,29 @@ if (@$_SESSION["connecter"] != "oui") {
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-    <title>Efrei MarketPlace - Ventes</title>
+    <title>Efrei Marketplace  - Ventes</title>
     <link rel="stylesheet" href="/css/paiement.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     
     <style>
         table {
             border-collapse: collapse;
+            width: 100%;
         }
-        
-        table, th, td {
+
+        table,
+        th,
+        td {
             border: 1px solid black;
+            flex: 1; /* Chaque élément prend la même largeur */
+            text-align: center; /* Centrer le texte */
         }
-        
-        th, td {
+
+        th,
+        td {
             padding: 5px;
         }
-        
+
         .delete-btn {
             background-color: red;
             color: white;
@@ -40,67 +46,80 @@ if (@$_SESSION["connecter"] != "oui") {
             border: none;
             cursor: pointer;
         }
+        
     </style>
     <style>
-                .user-table {
-                    border-collapse: collapse;
-                    width: 100%;
-                }
+               .user-table {
+            border-collapse: collapse;
+            width: 100%;
+        }
 
-                .user-table th, .user-table td {
-                    border: 1px solid #ddd;
-                    padding: 8px;
-                }
+        .user-table th,
+        .user-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
 
-                .user-table th {
-                    background-color: #f2f2f2;
-                    text-align: left;
-                }
+        .user-table th {
+            background-color: #f2f2f2;
+            text-align: left;
+        }
 
-                .user-table tr:nth-child(even) {
-                    background-color: #f9f9f9;
-                }
+        .user-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
 
-                .user-table tr:hover {
-                    background-color: #ddd;
-                }
+        .user-table tr:hover {
+            background-color: #ddd;
+        }
+        .rowLine{
+            border : 0;
+            display: flex;
+            justify-content: space-between; /* Espace uniforme */
+            align-items: center; /* Centrage vertical */
+            padding: 10px;
+        }
+        .rowLine > a{
+            flex: 1; /* Chaque élément prend la même largeur */
+            text-align: center; /* Centrer le texte */
+            border-right: 1px solid #000;
+        }
+        .rowLine > a:last-child{
+            border-right: none;
+        }
 
             </style>
 </head>
 <body>
     <header>
                         <div class="h">
-                            <h1><a href="/">Efrei MarketPlace</a></h1>
+                            <h1><a href="/">Facil'Access </a></h1>
                             <h1 class="account"><a href="/php/compte/moncompte.php"><img src="/image/person.svg" class="accountsvg"></a></h1>
                         </div>
                         <nav class="navbar2">
                             <ul class="menu">
-                            
-                                <li><a href="/php/compte/admin.php">Admin</a>
+            <li><a href="/php/compte/notification.php">Notifications</a></li>
+          <li><a href="demandes.php">Demandes</a></li>
+          <li><a href="admin_creation.php">Créer un compte</a></li> 
+
 
                             </ul>
                         </nav>
-                    <!-- <h1>Efrei MarketPlace</h1> -->
+                    
         </header>
         <main>
-            <style>
-                .use {
-                    text-align: center;
-                    padding: 20px;
-                    background-color: #f2f2f2;
-                    border-radius: 10px;
-                    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-                    max-width: 600px;
-                    margin: 0 auto;
-                }
-            </style>
 
-            <div class="use">
-                <h1>La liste des utilisateurs</h1>
-            </div>
+        <h1>La liste des utilisateurs</h1>
 
-            <div class="container">
-                <div class="row">
+        <table>
+            <tr>
+                <th>ID_compte</th>
+                <th>Username</th>
+                <th>Statut</th>
+                <th>Photo</th>
+                <th>Action</th>
+            </tr>
+
                     <?php
                         require_once('../bdd/connexion_bdd.php');
                         if (@$_SESSION["connecter"] != "oui") {
@@ -110,46 +129,67 @@ if (@$_SESSION["connecter"] != "oui") {
                             exit();
                         }
                         $nom_user = @$_SESSION["username"];
-                        //echo "$nom_user";
-
-
-                        // Requête pour récupérer tous les utilisateurs
-                        $sql = "SELECT `ID_compte`, `username`, `statut` FROM `Utilisateur`";
+                        $sql = "SELECT `ID_compte`, `username`, `statut`, `image_data` FROM `Utilisateur`";
                         $resultat = $conn->query($sql);
 
                         if ($resultat->num_rows > 0) {
-                            echo "<table class='user-table'>";
-                            echo "<thead>";
-                            echo "<tr>";
-                            echo "<th>ID_compte</th>";
-                            echo "<th>Username</th>";
-                            echo "<th>Statut</th>";
-                            echo "<th>Action</th>";
-                            echo "</tr>";
-                            echo "</thead>";
-                            echo "<tbody>";
+                            
 
                             while ($row = $resultat->fetch_assoc()) {
                                 echo "<tr>";
                                 echo "<td>" . $row["ID_compte"] . "</td>";
                                 echo "<td>" . $row["username"] . "</td>";
                                 echo "<td>" . $row["statut"] . "</td>";
-                                echo "<td><button onclick='supprimerUtilisateur(" . $row["ID_compte"] . ")'>Supprimer</button></td>";
+
+                                if (isset($row["image_data"]) && !empty($row["image_data"])) {
+                                    // Vérification et conversion de l'image en base64
+                                    $imageData = base64_encode($row["image_data"]);
+                                    $imageMimeType = $row["mime_type"];
+                                    $imageSrc = "data:$imageMimeType;base64,$imageData";  // URL de l'image encodée
+                        
+                                    // Affichage de l'image avec l'événement onclick pour ouvrir le modal
+                                    echo "<td><img src='$imageSrc' alt='Photo' style='width:50px; height:50px; object-fit:cover;' onclick='openModal(\"$imageSrc\")'></td>";
+                                } else {
+                                    // Si aucune image n'est présente
+                                    echo "<td>Pas d'image</td>";
+                                }
+                                echo "<td class='rowLine'>";
+                                echo "<a onclick='supprimerUtilisateur(" . $row["ID_compte"] . ", \"" . $row["username"] . "\", \"" . $row["name"] . "\")'>Supprimer</a>";
+                                echo "<a onclick='upgradeUtilisateur(" . $row["ID_compte"] . ", \"" . "coach" . "\", \"" . "coach" . "\")'>Passer coach</a>";
+
+                                
+                                echo "</td>";
                                 echo "</tr>";
                             }
 
-                            echo "</tbody>";
-                            echo "</table>";
+                          
                         } else {
                             echo "Aucun utilisateur trouvé.";
                         }
 
                         
                     ?>
+                    </table>
+
+
+
+
+                    
                 </div>
+                </table>
+
             </div>
+
+
+
+
+
+
+
+
+
             <script>
-                function supprimerUtilisateur(idUtilisateur) {
+                function supprimerUtilisateur(idUtilisateur, username, name) {
                     // Demander une confirmation à l'utilisateur avant de supprimer
                     if (confirm("Êtes-vous sûr de vouloir supprimer cet utilisateur ?")) {
                         // Envoyer une requête AJAX pour supprimer l'utilisateur
@@ -161,18 +201,107 @@ if (@$_SESSION["connecter"] != "oui") {
                                 if (xhr.status === 200) {
                                     // La suppression a réussi, actualiser la page ou effectuer d'autres actions nécessaires
                                     location.reload(); // Exemple : Recharger la page
-                                 } //else {
-                                //     // La suppression a échoué, afficher un message d'erreur ou effectuer d'autres actions nécessaires
-                                //     alert("Erreur lors de la suppression de l'utilisateur.");
-                                // }
+                                 } 
+                                 else {
+                                    location.reload();
+                                }
                             }
                         };
-                        xhr.send("idUtilisateur=" + idUtilisateur);
+                        // Envoyer les données au serveur
+                    var data = "idUtilisateur=" + encodeURIComponent(idUtilisateur) + 
+                            "&mail=" + encodeURIComponent(username) + 
+                            "&name=" + encodeURIComponent(name);
+                    console.log("Données envoyées : " + data); // Debugging dans la console
+                    xhr.send(data);
+                    }
+                }
+
+
+
+                
+                function upgradeUtilisateur(idUtilisateur, idRole) {
+                    // Demander une confirmation à l'utilisateur avant de supprimer
+                    if (confirm("Êtes-vous sûr de vouloir modifier le rôle de cet utilisateur ?")) {
+                        // Envoyer une requête AJAX pour supprimer l'utilisateur
+                        var xhr = new XMLHttpRequest();
+                        xhr.open("POST", "modifier_utilisateur.php", true);
+                        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                        xhr.onreadystatechange = function() {
+                            if (xhr.readyState === XMLHttpRequest.DONE) {
+                                if (xhr.status === 200) {
+                                    // La suppression a réussi, actualiser la page ou effectuer d'autres actions nécessaires
+                                    location.reload(); // Exemple : Recharger la page
+                                 } //
+                                 else {
+                                    location.reload();
+                                //     // La suppression a échoué, afficher un message d'erreur ou effectuer d'autres actions nécessaires
+                                //     alert("Erreur lors de la suppression de l'utilisateur.");
+                                }
+                            }
+                        };
+                        console.log(idUtilisateur);
+                        xhr.send("idUtilisateur=" + encodeURIComponent(idUtilisateur) + "&idRole=" + encodeURIComponent(idRole));
                     }
                 }
             </script>
+   </main>
+
+<!-- Modal -->
+<script>
+    // Fonction pour ouvrir le modal avec l'image
+    function openModal(imageSrc) {
+        var modal = document.getElementById("simpleModal");
+        var modalImage = document.getElementById("modalImage");
+        
+        modal.style.display = "block";
+        modalImage.src = imageSrc;
+    }
+
+    // Fonction pour fermer le modal
+    function closeModal() {
+        document.getElementById("simpleModal").style.display = "none";
+    }
+</script>
+
+<!-- Modal -->
+<div id="simpleModal" class="modal" style="display: none;">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <img class="modal-content" id="modalImage">
+</div>
+
+<!-- Style du modal -->
+<style>
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        padding-top: 100px;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+    }
+    .modal-content {
+        margin: auto;
+        display: block;
+        width: 80%;
+        max-width: 600px;
+    }
+    .close {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        color: #fff;
+        font-size: 36px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+</style>
 
 
-        </main>
+
+
+     
 </body>
 </html>

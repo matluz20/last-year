@@ -4,13 +4,18 @@
 /* Modif bootstrap */
 a {
     text-decoration: none;
-    color: #fff !important;
+    color: var(--header-text) !important;
 }
 
 a:hover {
     text-decoration: none !important;
 
 }
+
+body{
+    line-height: initial !important;
+  }
+
 
 h1 {
     font-size: 2rem !important;
@@ -37,7 +42,7 @@ body {
 }
 
 header {
-    background-color: #004FFF;
+    background-color: var(--header);
     justify-content: space-between;
     align-items: center;
     padding: 1rem;

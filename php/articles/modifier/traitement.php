@@ -3,10 +3,10 @@
 // Démarrage de la session
 session_start();
 
-$host = 'terraform-20250121115406880900000010.cxymgguk68ge.eu-west-3.rds.amazonaws.com'; 
-$dbname = 'testdb';   
-$username = 'admin';  
-$password = 'SuperSecretPassword123';
+    $host = '91.173.60.180'; 
+    $dbname = 'projet_web';   
+    $username = 'rs2';  
+    $password = 'Toto123#';
    
 // Vérification de la variable de session "connecter"
 if (!isset($_SESSION["connecter"]) || $_SESSION["connecter"] != "oui") { 

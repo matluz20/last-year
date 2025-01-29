@@ -17,6 +17,8 @@ session_start();
         // Arrêt de l'exécution du code
         exit();
     }
+
+    $_SESSION["admin_creation"] = true;
 ?>
 
 
@@ -32,6 +34,8 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <link rel="stylesheet" type="text/css" href="../../css/demandes.css"> -->
     <link rel="stylesheet" href="/css/style.css">
+
+
     <style>
         table {
             border-collapse: collapse;
@@ -58,7 +62,154 @@ session_start();
             border: none;
             cursor: pointer;
         }
-        
+        form {
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	padding: 0 50px;
+	height: 100%;
+	text-align: center;
+}
+
+input {
+	background-color: #eee;
+	border: none;
+	padding: 12px 15px;
+	margin: 8px 0;
+	width: 100%;
+}
+
+
+.form-container {
+	position: absolute;
+	top: 0;
+	height: 100%;
+	transition: all 0.6s ease-in-out;
+}
+
+.sign-in-container {
+	left: 0;
+	width: 50%;
+	z-index: 2;
+}
+
+.container.right-panel-active .sign-in-container {
+	transform: translateX(100%);
+}
+
+
+
+.container.right-panel-active .sign-up-container {
+	transform: translateX(100%);
+	opacity: 1;
+	z-index: 5;
+	animation: show 0.6s;
+}
+
+@keyframes show {
+
+	0%,
+	49.99% {
+		opacity: 0;
+		z-index: 1;
+	}
+
+	50%,
+	100% {
+		opacity: 1;
+		z-index: 5;
+	}
+}
+
+.overlay-container {
+	position: absolute;
+	top: 0;
+	left: 50%;
+	width: 50%;
+	height: 100%;
+	overflow: hidden;
+	transition: transform 0.6s ease-in-out;
+	z-index: 100;
+}
+
+.container.right-panel-active .overlay-container {
+	transform: translateX(-100%);
+}
+
+.overlay {
+	background: var(--connection);
+	background: -webkit-linear-gradient(to right, var(--connection),  var(--connection2));
+	background: linear-gradient(to right,  var(--connection),  var(--connection2));
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: 0 0;
+	color: #FFFFFF;
+	position: relative;
+	left: -100%;
+	height: 100%;
+	width: 200%;
+	transform: translateX(0);
+	transition: transform 0.6s ease-in-out;
+}
+
+.container.right-panel-active .overlay {
+	transform: translateX(50%);
+}
+
+.overlay-panel {
+	position: absolute;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	padding: 0 40px;
+	text-align: center;
+	top: 0;
+	height: 100%;
+	width: 50%;
+	transform: translateX(0);
+	transition: transform 0.6s ease-in-out;
+}
+
+.overlay-left {
+	transform: translateX(-20%);
+}
+
+.container.right-panel-active .overlay-left {
+	transform: translateX(0);
+}
+
+.overlay-right {
+	right: 0;
+	transform: translateX(0);
+}
+
+/* pour le texte de présentation */
+
+#typewriter {
+	user-select: none;
+
+	height: 40%;
+	width: 60%;
+}
+
+.switch {
+	font-weight: bold;
+	color: var(--connection);
+}
+
+.bodywriter {
+	text-align: justify;
+	width: 100%;
+}
+
+.container.right-panel-active .overlay-right {
+	transform: translateX(20%);
+}
+
+    
 
         
     </style>
@@ -116,10 +267,8 @@ session_start();
         <nav class="navbar">
             <ul class="menu">
                 <li><a href="/php/compte/notification.php">Notifications</a></li>
+                <li><a href="demandes.php">Demandes</a></li>
                 <li><a href="user.php">Liste des utilisateurs</a></li>
-                <li><a href="admin_creation.php">Créer un compte</a></li> 
-
-
             </ul>
         </nav>
     </header>
@@ -127,55 +276,33 @@ session_start();
 
     <main>
 
-    <h1>Listes des demandes</h1>
+    
+    <div class="container" id="container">
+            <div class="form-container sign-up-container">
+                <form action="insertion.php" method="POST" enctype="multipart/form-data">
+                    <h1>Renseignez ci-deesous les informations de l'utilisateur</h1><br>
+                    <input type="username" name="name" placeholder="Nom" required/>
+                    <input type="username" name="last_name" placeholder="Prenom" required/>
+                    <input type="email" name="email" placeholder="Adresse e-mail" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" />
+                    <input type="text" id="telephone" name="telephone" placeholder="Entrez votre numéro" required>
+                    <br><label for="photo">Veuillez insérer ci-dessous une photo de l'utilisateur de face, bien visible.</label>
+                    <input type="file" name="image" id="image" accept="image/*" required />		
+                    
+                    <br>
+                    <label for="rgpd" style="font-size: 12px; color: red; display: inline-block;">
+                        <span style="vertical-align: middle;">L'utilisateur accepte que ses données soient collectées conformément à la politique RGPD.</span>
+                        <input type="checkbox" id="rgpd" name="rgpd" required style="vertical-align: middle; margin-left: 5px;">
+                    </label><br><br>
 
-
-    <table>
-        <tr>
-            <th>Nom</th>
-            <th>Prenom</th>
-            <th>Mail</th>
-            <th>Télephone</th>
-            <th>Photo</th>
-            <th>Type</th>
-            <th>Action</th>
-        </tr>
-
-        <?php
-    require_once('../bdd/connexion_bdd.php');
-
-    $sql = "SELECT * FROM `Utilisateur` WHERE `statut` = 'pending'";
-    $resultat = $conn->query($sql);
-
-    if ($resultat->num_rows > 0) {
-        while($row = $resultat->fetch_assoc()) {
-            echo "<tr>";
-            echo "<td>".$row["name"]."</td>";
-            echo "<td>".$row["last_name"]."</td>";
-            echo "<td>".$row["username"]."</td>";
-            echo "<td>".$row["telephone"]."</td>";
-            $imageData = base64_encode($row["image_data"]);
-            $imageMimeType = $row["mime_type"];
-            $imageSrc = "data:$imageMimeType;base64,$imageData";  // URL de l'image encodée
-
-            // Affichage de l'image avec l'événement onclick pour ouvrir le modal
-            echo "<td><img src='$imageSrc' alt='Photo' style='width:50px; height:50px; object-fit:cover;' onclick='openModal(\"$imageSrc\")'></td>";
-
-
-            echo "<td> Création de compte </td>";
-            echo "<td class='rowLine'>";
-            echo '<a onclick="upgradeUtilisateur(\'' . $row["ID_compte"] . '\', \'' . $row["username"] . '\', \'' . $row["name"] . '\')">Accepter</a>';
-
-
-            echo "<a href='refuser.php?id=".$row["Nom"]."'> Refuser</a>";
-            echo "</td>";
-            echo "</tr>";
-        }
-    } else {
-        echo "<tr><td colspan='3'>Aucune demande trouvée.</td></tr>";
-    }
-    ?>
-    </table>
+                    <button name="envoi">Inscription</button>
+                </form>
+            </div>
+            
+            
+            
+                </div>
+            </div>
+        </div>
 
 
     </div>

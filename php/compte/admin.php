@@ -12,8 +12,8 @@ session_start();
 
     $nom_user = @$_SESSION["username"];
     $statut = @$_SESSION["statut"];
-    if($statut != "admin"){
-      header ('Location: /php/afterconexion.php');
+    if($statut != "admin" && $statut != "coach"){
+      header ('Location: /');
        //Arrêt de l'exécution du code
       exit();
     }
@@ -26,20 +26,22 @@ session_start();
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>Efrei MarketPlace - Ventes</title>
+    <title>Facil'Access</title>
     <link rel="stylesheet" href="/css/style.css">
   </head>
   <body>
     <header>
     <div class="h1">
-        <h1><a href="admin.php">Efrei MarketPlace</a></h1>
+        <h1><a href="admin.php">Facil'Access</a></h1>
         <h1 class="account"><a href="/php/compte/moncompte.php"><img src="/image/person.svg" class="accountsvg"></a></h1>
       </div>
       <nav class="navbar">
         <ul class="menu">
-          <li><a href="signalement.php">Signalements</a></li>
+          <li><a href="/php/compte/notification.php">Notifications</a></li>
           <li><a href="demandes.php">Demandes</a></li>
           <li><a href="user.php">Liste des utilisateurs</a></li> 
+          <li><a href="admin_creation.php">Créer un compte</a></li> 
+
 
         </ul>
       </nav>
@@ -49,90 +51,9 @@ session_start();
     <main>
       <div class="article">
 
-      <?php
-    
-    require_once('../bdd/connexion_bdd.php');
+      <br><br><br><h1>Bienvenue sur le Dashboard Facil'Access</h1><br>
+      <p>En tant qu'administrateur, vous avez la possibilité de gérer les comptes. <br> Les différentes actions possibles sont : la création et la validation des créations de compte, la suppression de comptes et la liste des utilisateurs.</p>
 
-    // Déclaration des variables pour les filtres
-    $tri = isset($_GET['tri']) ? $_GET['tri'] : 'Id_articles';
-    $order = isset($_GET['order']) && $_GET['order'] == 'DESC' ? 'DESC' : 'ASC';
-    $chevron = $order === 'ASC' ? '&#x25B2;' : '&#x25BC;';
-  
-  
-    // Requête pour récupérer tous les articles
-    $sql = "SELECT * FROM `Articles` ORDER BY $tri $order";
-    $resultat = $conn->query($sql);
-  
-    // Affichage des résultats
-    echo '<div class="container">';
-    echo '<div class="row">';
-  
-    // Filtre
-    echo '<form method="get" action="">';
-    echo '<label for="tri">Trier par : </label>';
-    echo '<select name="tri" id="tri" onchange="this.form.submit()">';
-    echo '<option>---</option>';
-    echo '<option value="Date">Date</option>';
-    echo '<option value="nom_article">Nom d\'article</option>';
-    echo '<option value="Prix">Prix</option>';
-    echo '</select>';
-    echo '<a class="chevron" href="?tri=' . $tri . '&order=' . ($order === 'ASC' ? 'DESC' : 'ASC') . '">' . $chevron . '</a>';
-    echo '</form>';
-    
-    
-    foreach ($resultat as $article) {
-      // Sélectionner toutes les images correspondantes à l'article
-      $chemins_images = glob('../articles/depot/images/*' . $article["nom_article"] . '.*');
-      
-      echo '<div class="col-md-6">';
-      echo '<div class="card mb-4 shadow-sm article">';
-      foreach ($chemins_images as $chemin_image) {
-          echo '<div class="imgArticle"><img class="taille" src="' . $chemin_image . '" class="card-img-top" alt="' . $article["nom_article"] . '"></div>';
-      }
-      echo '<div class="card-body">';
-      echo '<div class="card-head">';
-      echo '<h2 class="card-title">' . $article["nom_article"] . '</h2>';
-      echo '<p class="card-text">Description: ' . $article["Description"] . '</p>';
-      echo '</div>';
-      echo '<div class="d-flex justify-content-between align-items-center">';
-      echo '<span class="price">Prix: ' . $article["Prix"] .'€</span></br>';
-      echo '<span class="vendeurArticle">Vendeur : '. $article["ID_compte"] .'</span><br>';
-      echo '<span class="dateArticle">'. $article["Date"] .'</span>';
-  
-      // echo '<form method="post" action="ajouter_au_panier.php">';
-      // echo '<input type="hidden" name="id_article" value="' . $article["Id_articles"] . '">';
-      // echo '<button type="submit">Acheter</button>';
-      // echo '</form>';
-  
-      //  echo '<form method="post" action="articles/panier/ajout_au_panier.php">';
-      echo '<input type="hidden" name="id_article" value="' . $article["Id_articles"] . '">';
-      echo '<input type="hidden" name="nom_article" value="' . $article["nom_article"] . '">';
-      echo '<input type="hidden" name="prix_article" value="' . $article["Prix"] . '">';
-      echo '<a class="sup" href="../articles/suppression/alert_supprimer.php?id=' . $article["Id_articles"] . '">';
-      echo '<button type="submit" class="btnPanier btnArticle">';
-      echo 'Supprimer';
-      echo '</button>';
-      echo '</a>';
-      
-      //  echo '</form>';
-  
-      
-  
-      echo '<form method="post" action="../message/message.php" class="chat-form" id="chatForm_' . $article["Id_articles"] . '">';
-      echo '<input type="hidden" name="id_article" value="' . $article["Id_articles"] . '">';
-      echo  '<button type="submit" class="buttonMsg btnArticle">Contact</button>';
-      echo '</form>';
-  
-        // Inclure la fenêtre modale de chat
-      echo '</div>';
-      echo '</div>';
-      
-      echo '</div>';
-      echo '</div>';
-      
-    }
-
-      ?>
       </div>
 
 

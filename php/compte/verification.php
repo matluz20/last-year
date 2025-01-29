@@ -21,11 +21,10 @@ if(isset($_POST['envoi'])){
     
     // connexion à la base de données 
 
-    $host = 'terraform-20250121115406880900000010.cxymgguk68ge.eu-west-3.rds.amazonaws.com'; 
-    $dbname = 'testdb';   
-    $username = 'admin';  
-    $password = 'SuperSecretPassword123';
-    
+    $host = '91.173.60.180'; 
+    $dbname = 'projet_web';   
+    $username = 'rs2';  
+    $password = 'Toto123#';
 
     try {
         $conn = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
@@ -53,29 +52,15 @@ if(isset($_POST['envoi'])){
 
                 // rediriger en fonction du statut du compte : 
 
-                if($donnes['statut'] == "acheteur"){
-
-
-
-                   
+                if($donnes['statut'] == "pending" || $donnes['statut'] == "membre" || $donnes['statut'] == "coach"){                   
                     echo '<script type="text/javascript">'; 
-                    echo 'alert("Bienvenu sur Efrei marketplace ! faites des bons achats ! ");';  
-                    echo 'window.location.href = "../afterconexion.php"'; // redirection vers la page de connexion (mettre le chemin)
+                    echo 'alert("Bienvenue sur FacilAccess ! ");';  
+                    echo 'window.location.href = "/"'; // redirection vers la page de connexion (mettre le chemin)
                     echo '</script>';
                    
-                }
-
-                if($donnes['statut'] == "vendeur"){
-
-                    echo '<script type="text/javascript">'; 
-                    echo 'alert("Bienvenu sur Efrei marketplace ! faites des bonnes achats ! ");';  
-                    echo 'window.location.href = "../afterconexion.php"'; // redirection vers la page de connexion (mettre le chemin)
-                    echo '</script>';
-                    
                 }
 
                 if($donnes['statut'] == "admin"){
-
                     echo '<script type="text/javascript">'; 
                     echo 'alert("Bienvenu cher admin ! ");';  
                     echo 'window.location.href = "/php/compte/admin.php"'; // redirection vers la page de connexion (admin)
@@ -84,7 +69,6 @@ if(isset($_POST['envoi'])){
                 }
 
                 }
-                
                 else{
                 echo "Mot de passe incorrect.";
                 }

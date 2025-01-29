@@ -26,7 +26,7 @@ $afficher_section1 = false;
 $afficher_section2 = false;
 
 // Vérification du statut de l'utilisateur
-if ($row["statut"] == "acheteur") {
+if ($row["statut"] == "membre") {
     // Affichage de la section 1 si l'utilisateur est un acheteur
     $afficher_section1 = true;
 } else {
@@ -79,22 +79,22 @@ if ($row["statut"] == "acheteur") {
                 // Vérification si la requête s'est bien exécutée
                 if ($resultat1->num_rows > 0) {
                     echo '<script type="text/javascript">'; 
-                    echo 'alert("Vous avez déjà effectué une demande ! veillez attendre notre reponse ! ");';  
-                    echo 'window.location.href = "afterconexion.php"'; // redirection vers la page après connexion 
+                    echo 'alert("Vous avez déjà effectué une demande ! veuillez attendre notre reponse ! ");';  
+                    echo 'window.location.href = "/"'; // redirection vers la page après connexion 
                     echo '</script>';
                 }
 
 
                 if ($resultat1->num_rows == 0) {
                 
-                $sql = "INSERT INTO `devenirvendeur` ( `Nom`)
-                VALUES( '$nom_user')";
+                $sql = "INSERT INTO `devenirvendeur` ( `Nom`,`type`)
+                VALUES( '$nom_user', 'devenir coach')";
                 
                 $resultat = $conn->query($sql);
                 
                 echo '<script type="text/javascript">'; 
                 echo 'alert("Votre démande a bien été pris en compte ! nous vous tiendrons informé ");';  
-                echo 'window.location.href = "afterconexion.php"'; // redirection vers la page après connexion 
+                echo 'window.location.href = "/"'; // redirection vers la page après connexion 
                 echo '</script>';
                 }
                 
@@ -117,45 +117,13 @@ if ($row["statut"] == "acheteur") {
 
             <header>
                 <div class="h1">
-                    <h1><a href="/">Efrei MarketPlace</a></h1>
+                    <h1><a href="/">Facil'Access </a></h1>
                     <h1 class="account"><a href="/php/compte/moncompte.php"><img src="/image/person.svg" class="accountsvg"></a></h1>
                 </div>
                 <nav class="navbar">
                     <ul class="menu">
-                        <li><a href="/php/afterconexion.php">Tout Parcourir</a></li>
                         <li><a href="/php/compte/notification.php">Notifications</a></li>
-                        <li><a href="/php/paiement.php">Panier
-
-                                    <?php
-
-                                    // Démarrage de la session
-                                    session_start();
-
-                                    // Vérification de la variable de session "connecter"
-                                    if (@$_SESSION["connecter"] != "oui") {
-                                        // Redirection vers la page d'accueil si l'utilisateur n'est pas connecté
-                                        header('Location: /');
-                                        // Arrêt de l'exécution du code
-                                        exit();
-                                    }
-
-                                    require_once('bdd/connexion_bdd.php');
-                                    $nom_user = @$_SESSION["username"];
-
-                                    $sql1 = "SELECT COUNT(*) as total FROM `Panier` WHERE username = '$nom_user'";
-                                    $resultat1 = $conn->query($sql1);
-
-                                    if ($resultat1) {
-                                        $row = $resultat1->fetch_assoc();
-                                        $nombreLignes = $row['total'];
-                                        echo $nombreLignes;
-                                    } else {
-                                        echo "1";
-                                    }
-
-                                    ?>
-
-                                </a></li>
+                        <li><a href="/php/devenirvendeur.php">Devenir Coach</a></li>
                         <li><a href="/php/compte/deconnexion.php">Deconnexion</a></li>
                     </ul>
                 </nav>

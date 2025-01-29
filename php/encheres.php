@@ -20,7 +20,7 @@ session_start();
 
   <head>
     <meta charset="UTF-8">
-    <title>Efrei MarketPlace - Ventes</title>
+    <title>Efrei Marketplace  - Ventes</title>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/enchere.css">
     
@@ -33,7 +33,7 @@ session_start();
     <header>
 
       <div class="h1">
-        <h1><a href="/">Efrei MarketPlace</a></h1>
+        <h1><a href="/">Efrei Marketplace </a></h1>
         <h1 class="account"><a href="/php/compte/moncompte.php"><img src="/image/person.svg" class="accountsvg"></a></h1>
       </div>
       <nav class="navbar">

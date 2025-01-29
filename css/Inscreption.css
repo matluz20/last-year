@@ -42,8 +42,8 @@ a {
 
 button {
 	border-radius: 20px;
-	border: 1px solid #360ed4;
-	background-color: #5311ed;
+	border: 1px solid var(--connection2);
+	background-color: var(--connection);
 	color: #FFFFFF;
 	font-size: 12px;
 	font-weight: bold;
@@ -68,7 +68,7 @@ button.ghost {
 
 button.ghost:hover {
 	transition: ease-in-out 0.5s;
-	color: #0b7bcb;
+	color: var(--connection);
 	background-color: #FFFFFF;
 	border-color: transparent;
 }
@@ -165,9 +165,9 @@ input {
 }
 
 .overlay {
-	background: #1044c7;
-	background: -webkit-linear-gradient(to right, #290ab4, #0b7bcb);
-	background: linear-gradient(to right, #290ab4, #0b7bcb);
+	background: var(--connection);
+	background: -webkit-linear-gradient(to right, var(--connection),  var(--connection2));
+	background: linear-gradient(to right,  var(--connection),  var(--connection2));
 	background-repeat: no-repeat;
 	background-size: cover;
 	background-position: 0 0;
@@ -223,7 +223,7 @@ input {
 
 .switch {
 	font-weight: bold;
-	color: midnightblue;
+	color: var(--connection);
 }
 
 .bodywriter {
