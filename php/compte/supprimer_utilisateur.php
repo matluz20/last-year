@@ -18,7 +18,7 @@ require_once ('../bdd/connexion_bdd.php');
         $to = $_POST['mail'];
         $name = $_POST['name'];
 
-                // Requête pour supprimer l'utilisateur
+            // Requête pour supprimer l'utilisateur
             $sql = "DELETE FROM `Utilisateur` WHERE `ID_compte` = $idUtilisateur";
 
             if ($conn->query($sql) === TRUE) {
@@ -42,7 +42,8 @@ require_once ('../bdd/connexion_bdd.php');
                 $mail_sent = mail($to, $subject, $message, $headers);
 
                 
-
+                $sql3 = "DELETE FROM `message` WHERE `username` = $to";
+                $conn->query($sql3);
 
                 // La suppression a réussi
                 http_response_code(200); // Réponse HTTP 200 - OK

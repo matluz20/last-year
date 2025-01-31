@@ -51,7 +51,7 @@ session_start();
     <main>
       <div class="article">
 
-      <br><br><br><h1>Bienvenue sur le Dashboard Facil'Access</h1><br>
+      <h1>Bienvenue sur le Dashboard Facil'Access</h1><br>
       <p>En tant qu'administrateur, vous avez la possibilité de gérer les comptes. <br> Les différentes actions possibles sont : la création et la validation des créations de compte, la suppression de comptes et la liste des utilisateurs.</p>
 
       </div>

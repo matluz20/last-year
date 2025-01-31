@@ -132,6 +132,7 @@ session_start();
 
     <table>
         <tr>
+            <th>Date de creation</th>
             <th>Nom</th>
             <th>Prenom</th>
             <th>Mail</th>
@@ -150,6 +151,7 @@ session_start();
     if ($resultat->num_rows > 0) {
         while($row = $resultat->fetch_assoc()) {
             echo "<tr>";
+            echo "<td>".$row["date"]."</td>";
             echo "<td>".$row["name"]."</td>";
             echo "<td>".$row["last_name"]."</td>";
             echo "<td>".$row["username"]."</td>";
@@ -166,8 +168,7 @@ session_start();
             echo "<td class='rowLine'>";
             echo '<a onclick="upgradeUtilisateur(\'' . $row["ID_compte"] . '\', \'' . $row["username"] . '\', \'' . $row["name"] . '\')">Accepter</a>';
 
-
-            echo "<a href='refuser.php?id=".$row["Nom"]."'> Refuser</a>";
+            echo "<a href='refuser.php?username=".$row["username"]."'> Refuser</a>";
             echo "</td>";
             echo "</tr>";
         }

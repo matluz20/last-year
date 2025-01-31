@@ -12,40 +12,13 @@ $(document).ready(function () {
 });
 
 
-// Effet d'écriture style machine à écrire présent dans la page d'inscription/connexion
-
-// Déclaration de la variable txtanim qui récupère l'emplacement où sera le futur texte généré
 const txtanim = document.querySelector(".bodywriter");
-// Déclaration de la variable textAnime créant une nouvelle instance de l'objet Typewriter de la librairie que nous avons importé dans notre fichier php concernant l'inscription
-var textAnime = new Typewriter(txtanim, {
-	// Modification de la vitesse de suppression 
-	deleteSpeed: 30,
-	loop: true
-})
 
-// Affectation des propriétés du texte writer
-textAnime
-.pauseFor(2000)
-	.changeDelay(50)
-	.typeString('Votre nouvel espace reservé à ')
-	.pasteString('<span class="switch">votre sécurité</span>')
-	.pauseFor(500)
-	.typeString('<br><br>Notre plateforme intuitive et sécurisée qui vous permette de gérer facilement votre accès aux salles de sport près de chez vous.')
-	.pauseFor(600)
-	.start()
+        // Texte statique au lieu de l'animation dynamique
+        txtanim.innerHTML = 'Votre nouvel espace réservé à <span class="switch">votre sécurité</span><br><br>Notre plateforme intuitive et sécurisée qui vous permet de gérer facilement votre accès aux salles de sport près de chez vous.';
 
-// Déclaration d'une variable booléenne qui servira à créer une transition entre achat et vente sur la page d'accueil
-let isBuying = true;
-
-// Utilisation de Set Interval qui permet de réaliser la transition toutes les x secondes en définissant x ici 2000 milisecondes
-setInterval(() => {
-	const buySpan = document.querySelector('.switch');
-	if (buySpan) {
-		if (isBuying) {
-			buySpan.innerHTML = 'votre sécurité';
-		} else {
-			buySpan.innerHTML = 'vos accès';
-		}
-	}
-	isBuying = !isBuying;
-}, 2000);
+        // Mise à jour statique de la partie "switch"
+        const buySpan = document.querySelector('.switch');
+        if (buySpan) {
+            buySpan.innerHTML = 'votre sécurité'; // Valeur statique
+        };

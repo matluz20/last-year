@@ -3,13 +3,7 @@
 // Démarrage de la session
 session_start();
 
-// Vérification de la variable de session "connecter"
-if (@$_SESSION["connecter"] != "oui") {
-    // Redirection vers la page d'accueil si l'utilisateur n'est pas connecté
-    header('Location: ../index.php');
-    // Arrêt de l'exécution du code
-    exit();
-}
+
 
 // connexion à la base de données 
 
@@ -71,7 +65,7 @@ try {
 
     if ($stmt->rowCount() == 0) {
         
-        $stmt = $conn->prepare("INSERT INTO `Utilisateur` ( `username`, `password`, `statut`,`email`, `name`, `last_name`, `image_data`,`telephone`) VALUES(:username, :password, :statut, :email, :name, :last_name, :image_data, :telephone )");
+        $stmt = $conn->prepare("INSERT INTO `Utilisateur` ( `username`, `password`, `statut`,`email`, `name`, `last_name`, `image_data`,`telephone`,`date`) VALUES(:username, :password, :statut, :email, :name, :last_name, :image_data, :telephone, CURRENT_TIMESTAMP)");
         $stmt->bindParam(':username', $recup_email);
         $stmt->bindParam(':password', $hashed_password);
         $stmt->bindParam(':statut', $default_statut);
@@ -81,7 +75,6 @@ try {
         $stmt->bindParam(':image_data', $image_data);
         $stmt->bindParam(':telephone', $recup_telephone);
         $stmt->execute();
-
 
         if($recup_email != ""){
 

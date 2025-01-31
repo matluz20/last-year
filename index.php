@@ -1,6 +1,5 @@
 <?php
 
-
 // Démarrage de la session
 session_start();
 
@@ -34,7 +33,7 @@ session_start();
 
     <body>
 		
-	
+		<br>
         <h1>Bienvenue sur Facil'Access !</h1>
 
 
@@ -46,7 +45,7 @@ session_start();
 			<input type="username" name="last_name" placeholder="Prenom" required/>
 			<input type="email" name="email" placeholder="Adresse e-mail" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" />
 			<input type="text" id="telephone" name="telephone" placeholder="Entrez votre numéro" required>
-			<br><label for="photo">Veuillez insérer ci-dessous votre photo de face, bien visible.</label>
+			<br><label for="photo">Veuillez insérer ci-dessous votre photo de face, bien visible. Celle ci sera utilisé pour vous authentifier lors de votre venu dans nos salles de sport.</label>
 			<input type="file" name="image" id="image" accept="image/*" required />		
 			
 			<br>

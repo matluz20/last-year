@@ -68,13 +68,30 @@ session_start();
       </div>
       
     </div>
+      <div class="flexcard">
+
+      <div class="UserCard">
+          <form action="modif_password.php" method="POST" enctype="multipart/form-data">
+              Changement de mot de passe<br><br>
+              <input type="password" name="password" placeholder="Mot de passe" required minlength="8"/>
+              <br>
+              <input type="password" name="confirm_password" placeholder="Confirmation" required minlength="8"/>
+              <br>
+              <button name="envoi" class="change">Modifier</button>
+          </form>
+      </div>
+      </div>
     
 
     <style>
-    .historique {
-      position: absolute;
-      top: -15px;
-      right: 0px;
+    .change {
+      padding:2px;
+      border-radius: 20px;
+      background-color: #F2F2F2;
+      color: black;
+    }
+    .change:hover {
+      color: var(--header-text);
     }
   </style>
 
@@ -171,9 +188,6 @@ session_start();
 
 /* style pour le formulaire d'ajout*/
 
-  form {
-    margin-top: 20px;
-  }
   
   form label,
   form input,
