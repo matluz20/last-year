@@ -100,6 +100,7 @@ if (@$_SESSION["connecter"] != "oui") {
                             <ul class="menu">
             <li><a href="/php/compte/notification.php">Notifications</a></li>
           <li><a href="demandes.php">Demandes</a></li>
+          <li><a href="user.php">Liste des utilisateurs</a></li>
           <li><a href="admin_creation.php">Créer un compte</a></li> 
 
 
@@ -114,7 +115,11 @@ if (@$_SESSION["connecter"] != "oui") {
         <table>
             <tr>
                 <th>ID_compte</th>
-                <th>Username</th>
+                <th>Date de creation</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Email</th>
+                <th>Téléphone</th>
                 <th>Statut</th>
                 <th>Photo</th>
                 <th>Action</th>
@@ -129,7 +134,7 @@ if (@$_SESSION["connecter"] != "oui") {
                             exit();
                         }
                         $nom_user = @$_SESSION["username"];
-                        $sql = "SELECT `ID_compte`, `username`, `statut`, `image_data` FROM `Utilisateur`";
+                        $sql = "SELECT * FROM `Utilisateur`";
                         $resultat = $conn->query($sql);
 
                         if ($resultat->num_rows > 0) {
@@ -138,7 +143,11 @@ if (@$_SESSION["connecter"] != "oui") {
                             while ($row = $resultat->fetch_assoc()) {
                                 echo "<tr>";
                                 echo "<td>" . $row["ID_compte"] . "</td>";
+                                echo "<td>" . $row["date"] . "</td>";
+                                echo "<td>" . $row["name"] . "</td>";
+                                echo "<td>" . $row["last_name"] . "</td>";
                                 echo "<td>" . $row["username"] . "</td>";
+                                echo "<td>" . $row["telephone"] . "</td>";
                                 echo "<td>" . $row["statut"] . "</td>";
 
                                 if (isset($row["image_data"]) && !empty($row["image_data"])) {

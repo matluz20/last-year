@@ -3,8 +3,6 @@
 // Démarrage de la session
 session_start();
 
-
-
 // connexion à la base de données 
 
 $host = '91.173.60.180'; 
@@ -41,6 +39,7 @@ if (!in_array($imageFileType, ['jpg', 'jpeg', 'png', 'gif', 'webp'])) {
     echo '</script>';
     exit;
 }
+
 function generateRandomPassword($length = 8) {
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()';
     $password = '';

@@ -267,6 +267,7 @@ input {
                 <li><a href="/php/compte/notification.php">Notifications</a></li>
                 <li><a href="demandes.php">Demandes</a></li>
                 <li><a href="user.php">Liste des utilisateurs</a></li>
+                <li><a href="admin_creation.php">Créer un compte</a></li> 
             </ul>
         </nav>
     </header>

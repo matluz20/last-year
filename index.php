@@ -40,7 +40,7 @@ session_start();
         <div class="container" id="container">
 	<div class="form-container sign-up-container">
 		<form action="php/compte/insertion.php" method="POST" enctype="multipart/form-data">
-			<h1>inscrivez-vous</h1>
+			<h1>Inscrivez-vous</h1>
 			<input type="username" name="name" placeholder="Nom" required/>
 			<input type="username" name="last_name" placeholder="Prenom" required/>
 			<input type="email" name="email" placeholder="Adresse e-mail" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" />
@@ -50,7 +50,7 @@ session_start();
 			
 			<br>
 			<label for="rgpd" style="font-size: 12px; color: red; display: inline-block;">
-				<span style="vertical-align: middle;">J'accepte que mes données soient collectées conformément à la politique RGPD.</span>
+				<span style="vertical-align: middle;"> <a href="https://www.economie.gouv.fr/entreprises/reglement-general-protection-donnees-rgpd">J'accepte que mes données soient collectées conformément à la politique RGPD.</a></span>
 				<input type="checkbox" id="rgpd" name="rgpd" required style="vertical-align: middle; margin-left: 5px;">
 			</label><br><br>
 
